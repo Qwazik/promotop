@@ -1,0 +1,353 @@
+@import "_settings/_mixins";
+@import "_settings/_config";
+@import "_settings/_reset";
+@import "_bootstrap-grid";
+@import "_fonts";
+
+html{
+    font-size: 62.5%;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    font-size: 1.6rem;
+    background: $white;
+    font-family: $ff-primary;
+    margin: 0;
+    padding: 0;
+    min-width: 320px;
+}
+
+.default-content{
+    color: $muted500;
+    line-height: 1.5;
+    .h{
+        margin-bottom: 2.5rem;
+        margin-top: 4.5rem;
+        &:first-child{
+            margin-top: 0;
+        }
+    }
+    ul.ns{
+        li{
+            padding-left: 0;
+        }
+        li:after{
+            display: none;
+        }
+    }
+    p, ul, ol{
+        margin: 1.5rem 0;
+        line-height: (24/16);
+        &:first-child{
+            margin-top: 0;
+        }
+        &::last-child{
+            margin-bottom: 0;
+        }
+    }
+    ul,ol{
+        li{
+            &:not(:first-child){
+                margin-top: 1.3rem;
+            }
+        }
+    }
+    ul{
+        list-style: none;
+        padding-left: 0;
+        li{
+            position: relative;
+            padding-left: 2rem;
+            &:after{
+                content: '';
+                position: absolute;
+                height: 6px;
+                width: 6px;
+                background: $primary;
+                border-radius: 50%;
+                display: inline-block;
+                left: 0;
+                top: 0.55em;
+            }
+        }
+    }
+}
+
+.image-text{
+    display: flex;
+    &__image,&__text{
+        flex: 1 1 0;
+    }
+    &__text{
+        flex-grow: 2;
+    }
+    &__image{
+        margin-right: 3rem;
+        img{
+            max-width: 100%;
+            border-radius: $bdrs-small;
+        }
+    }
+}
+
+.loading{
+    visibility: hidden;
+}
+
+/*-- START: helpers --*/
+
+.circle-ico{
+    width: 5rem;
+    height: 5rem;
+    background: $white;
+    box-shadow: $shadow-s;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: $primary;
+    font-size: 2rem;
+}
+
+.rotate-180{
+    transform: rotate(180deg);
+}
+
+.rotate-90{
+    transform: rotate(90deg);
+}
+
+.off-link{
+    text-decoration: none;
+    color: inherit;
+}
+
+.ns:not(.row){
+    list-style: none;
+    padding-left: 0;
+    margin: 0;   
+}
+
+.row.ns{
+    padding-left: 0;
+    margin-top: 0;
+    bottom: 0;
+    margin-bottom: 0;
+    list-style: none;
+}
+/*-- END: helpers --*/
+
+
+/*-- START: ui --*/
+
+//headers
+.h{
+    margin: 0;
+    font-family: $ff-secondary;
+    &_xs{
+        color: $h_xs_color;
+        font-size: $h_xs_size;
+        font-weight: $h_xs_weigth;
+    }
+    &_s{
+        color: $h_s_color;
+        font-size: $h_s_size;
+        font-weight: $h_s_weigth;
+    }
+    &_m{
+        color: $h_m_color;
+        font-size: $h_m_size;
+        font-weight: $h_m_weigth;
+    }
+    &_l{
+        color: $h_l_color;
+        font-size: $h_l_size;
+        font-weight: $h_l_weigth;
+        line-height: 1.3;
+    }
+    &_light{
+        color: $white;
+    }
+    &-desc{
+        color: $muted500;
+        margin-bottom: 4rem;
+    }
+}
+
+//text
+.text{
+    @each $name, $color in $text-colors{
+        &-#{$name}{
+            color: $color;
+        }
+    }
+}
+
+//btns
+.btn{
+    background: none;
+    border:none;
+    display: inline-block;
+    line-height: 1;
+    text-decoration: none;
+    outline:none;
+    color: inherit;
+    font-size: 1.4rem;
+    border-radius: $bdrs-button;
+    padding: em(20,14) em(76,14);
+    font-weight: bold;
+    transition: box-shadow .3s, background .6s, color .6s; 
+    color: $primary;
+    position: relative;
+    text-align: center;
+    box-sizing: border-box;
+    .icm{
+        margin-right: 1rem;
+    }
+    &_ico{
+        padding-left: em(67,14);
+        padding-right:em(67,14);
+    }
+    &_light{
+        background: $white;
+        color: $muted600;
+        box-shadow: $shadow-s;
+        .icm{
+            color: $primary;  
+        }
+        &:hover{
+            background: $primary;
+            box-shadow: $shadow-hover;   
+            color: $white;
+            .icm{
+                color: $white;
+            }    
+        }
+    }
+    &_primary{
+        background: $primary;
+        color: $primary-btn-text;
+        box-shadow: $shadow-md;
+        .icm{
+            color: $white;
+        }
+        &:hover{
+            background: $primary-light;
+            box-shadow: $shadow-hover;       
+        }
+    }
+    &_bd{
+        border: $border-default;
+        color: $primary;
+        padding: calc(#{em(20,14)} - 1px) calc(#{em(76,14)} - 1px);
+        transition: all .3s;
+        &:hover{
+            border-color: $primary;
+        }
+    }
+    &_disabled, &_disabled:hover{
+        background: $white;
+        color: $muted200;
+        .icm{
+            color: inherit;
+        }
+        cursor: not-allowed;
+        &.btn_light,&.btn_primary{
+            &,&:hover{box-shadow: $shadow-light;}
+        }
+        &.btn_bd{
+            &:hover{
+                border: $border-default !important;
+            }
+        }
+    }
+}
+
+//forms
+.input{
+
+}
+
+.js-swiper.initialized .slider-navigation{
+    display: flex;
+}
+
+.slider-navigation{
+    display: flex;
+    align-items: center;
+    display: none;
+    &_centered{
+        .slider-btn{
+            position: absolute;
+            top: 50%;
+            z-index: 5;
+            outline:none;
+            &:first-child{
+                left: 0;
+                transform: translate(-50%,-50%);
+            }
+            &:last-child{
+                right: 0;
+                transform: translate(50%,-50%);
+            }
+        }
+    }
+}
+
+.slider-btn{
+    cursor: pointer;
+    width: 5rem;
+    height: 5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: $primary;
+    background: $white;
+    border-radius: 50%;
+    font-size: 1.1rem;
+    transition: all .5s;
+    box-shadow: $shadow-s;
+    margin: 0 1rem;
+    outline:none;
+    &_disabled{
+        box-shadow: $shadow-light;
+        color: $muted200;
+        cursor: not-allowed;
+    }
+    &:first-child{
+        margin-left: 0;
+    }
+    &:last-child{
+        margin-right: 0;
+    }
+    &:not(&_disabled):hover{
+        background: $primary;
+        color: $white;
+    }
+}
+
+.slider-dots{
+    display: inline-flex;
+    margin: 0 1rem;
+    &__dot{
+        border-radius: 50%;
+        width: 14px;
+        height: 14px;
+        background: $white;
+        position: relative;
+        transition: background .3s;
+        outline:none;
+        cursor: pointer;
+        &:not(:first-child){
+            margin-left: 1rem;
+        }
+        &_active{
+            background: $info;
+        }
+    }
+}
+/*-- END: ui --*/
+
+/*-- START: elements --*/
